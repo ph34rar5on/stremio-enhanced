@@ -33,7 +33,7 @@ jobs:
             arch: x64
 
     env:
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
 
     steps:
       - name: Checkout code
@@ -79,8 +79,6 @@ jobs:
 
       - name: Build for production with electron-builder
         run: npm run build:${{ matrix.target }}:${{ matrix.arch }}
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: "Debug: List release-builds directory"
         run: |
@@ -175,7 +173,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -206,4 +204,4 @@ jobs:
             release-artifacts/**/*.snap
             release-artifacts/**/*.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
